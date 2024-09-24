@@ -24,9 +24,14 @@ func AuthMiddleware(authProvider auth.Authenticator) gin.HandlerFunc {
 			return
 		}
 
-		// reqUser, err := nil, nil
+		reqUser, err := authProvider.GetAccountInfo(c, tokenParts[1])
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Please provide valid token"})
+			c.Abort()
+			return
+		}
 
-		// c.Set("user", reqUser) // Set the verified user in the context
+		c.Set("userID", reqUser.LocalID) // Set the verified user in the context
 		c.Next()
 	}
 }

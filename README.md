@@ -1,7 +1,3 @@
-# Voice Line
-
-Voice Line is a Go-based application that provides user authentication and management through Firebase. Built on the Gin framework, it offers a robust RESTful API and integrates with PostgreSQL for data storage.
-
 ## Installation
 1. **Clone the repository:**
 

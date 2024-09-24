@@ -117,3 +117,24 @@ After starting the server, you can interact with the API endpoints outlined belo
         }
     }
     ```
+
+
+## Test using a script
+
+
+1. **Go to `client-script` directory:**
+
+   ```bash
+   cd client-script
+   ```
+
+2. **Install required packages::**
+    Make sure you have the requests library installed. You can install it via pip if it's not already installed
+   ```bash
+    pip install requests
+   ```
+
+3. **Run the script:**
+    ```bash
+    python test_api.py
+    ```

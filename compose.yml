@@ -1,0 +1,36 @@
+services:
+  app:
+    environment:
+      - DB_HOST=db
+      - DB_USER=vioceline
+      - DB_PASSWORD=password
+      - DB_NAME=user
+      - FIREBASE_BASEURL=https://identitytoolkit.googleapis.com
+      - FIREBASE_APIKEY=AIzaSyBUi9KnHU20QCcnKwuDc181d31kLmu6gnk
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - 8080:8080
+    restart: on-failure
+
+    develop:
+      watch:
+        - action: rebuild
+          path: .
+        - action: rebuild
+          path: ./go.mod
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=vioceline
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=user
+    volumes:
+      - db:/var/lib/postgresql/data
+    
+volumes:
+  db:

@@ -10,8 +10,6 @@ import (
 type UserRepository interface {
 	CreateUser(ctx context.Context, user *models.User) error
 	GetUserByID(ctx context.Context, id string) (*models.User, error)
-	GetUserByUsername(ctx context.Context, username string) (*models.User, error)
-	GetAllUsers(ctx context.Context) ([]models.User, error)
 	UpdateUser(ctx context.Context, user *models.User) error
 	DeleteUser(ctx context.Context, id string) error
 }
@@ -36,22 +34,6 @@ func (r *PostgresUserRepository) GetUserByID(ctx context.Context, id string) (*m
 		return nil, err
 	}
 	return &user, nil
-}
-
-func (r *PostgresUserRepository) GetUserByUsername(ctx context.Context, username string) (*models.User, error) {
-	var user models.User
-	if err := r.DB.WithContext(ctx).First(&user, "username = ?", username).Error; err != nil {
-		return nil, err
-	}
-	return &user, nil
-}
-
-func (r *PostgresUserRepository) GetAllUsers(ctx context.Context) ([]models.User, error) {
-	var users []models.User
-	if err := r.DB.WithContext(ctx).Find(&users).Error; err != nil {
-		return nil, err
-	}
-	return users, nil
 }
 
 func (r *PostgresUserRepository) UpdateUser(ctx context.Context, user *models.User) error {
